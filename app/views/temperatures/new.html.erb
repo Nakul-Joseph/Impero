@@ -1,0 +1,17 @@
+<h1>New Temperature</h1>
+
+<%= form_with model: @temp do |form| %>
+  <div>
+    <%= form.label :name %>: &nbsp;
+    <%= form.select :temp_type, Temperature.temp_types.keys %>
+  </div>
+
+  <div>
+    <%= form.label :value %>: &nbsp;
+    <%= form.text_field :value %></br>
+  </div></br>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

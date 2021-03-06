@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_06_160833) do
+ActiveRecord::Schema.define(version: 2021_03_06_180430) do
 
   create_table "temperatures", force: :cascade do |t|
-    t.integer "name"
+    t.integer "temp_type"
     t.float "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["temp_type"], name: "index_temperatures_on_temp_type"
   end
 
 end

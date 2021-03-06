@@ -1,3 +1,4 @@
 class Temperature < ApplicationRecord
-  enum name: [:hot, :warm, :cold]
+  enum temp_type: [:hot, :cold]
+  validates :temp_type, uniqueness: true
 end
