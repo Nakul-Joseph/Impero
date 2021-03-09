@@ -1,4 +1,4 @@
-<h1> Weather Temperature Information </h1>
+<h1>Weather definitions</h1>
 
 <div>
 
@@ -20,6 +20,27 @@
 </div></br>
 
 <div>
-  Please set temperature boundaries for hot and cold temperatures <a href="<%= new_temperature_path %>">here</a>
+  Please set temperature definitions for hot and cold temperatures <a href="<%= new_temperature_path %>">here</a>
 </div>
 
+</br>
+
+<h2> Search weather by postcode</h2>
+<%= form_for :search, url: forecasts_search_path do |form| %>
+  <div>
+    <%= form.label :postcode %>: &nbsp;
+    <%= form.text_field :postcode %>
+  </div></br>
+
+   <div>
+    <%= form.submit 'Search'%>
+  </div>
+<% end %>
+
+<% if @country && @maxtemp %>
+  <h3> Temperature Results </h3>
+  <div>
+    Country: <%= @country %></br>
+    Max.Temp: <%= @maxtemp %><span>&#8451;</span>
+  </div>
+<% end %>
