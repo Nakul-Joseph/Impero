@@ -1,0 +1,18 @@
+<h1>Set Temperature Definitions</h1>
+
+<%= form_with model: @temp do |form| %>
+  <div>
+    <%= form.label :name %>: &nbsp;
+    <%= form.select :temp_type, Temperature.temp_types.keys %>
+  </div></br>
+
+  <div>
+    <%= form.label :value %>: &nbsp;
+    <%= form.text_field :value %></br>
+  </div></br>
+
+  <div>
+    <%= link_to 'Back', root_path %> &nbsp;
+    <%= form.submit 'Set' %>
+  </div>
+<% end %>
