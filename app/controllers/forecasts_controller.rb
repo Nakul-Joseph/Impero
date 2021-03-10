@@ -1,19 +1,16 @@
+# frozen_string_literal: true
+
 class ForecastsController < ApplicationController
   def index
-    @hot = Temperature.find_by(temp_type: :hot)
-    @cold = Temperature.find_by(temp_type: :cold)
+    @hot = Temperature.hot
+    @cold = Temperature.cold
   end
 
   def search
-    api = WeatherApi.new(search_params[:postcode])
-    @response = api.call
-
-    return if @response.empty?
-
-    hot = Temperature.find_by(temp_type: :hot)
-    cold = Temperature.find_by(temp_type: :cold)
-
-    @today = TemperatureCheck.new(@response,hot.value,cold.value).today
+    forecast = Weather::Forecast.new(search_params[:postcode])
+    @response = forecast.today
+  rescue StandardError => e
+    flash.now[:error] = e.message
   end
 
   private

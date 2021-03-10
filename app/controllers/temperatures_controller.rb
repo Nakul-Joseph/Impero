@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TemperaturesController < ApplicationController
   def new
     @temp = Temperature.new
@@ -5,17 +7,17 @@ class TemperaturesController < ApplicationController
 
   def create
     @temp = Temperature.find_or_create_by(temp_type: create_params[:temp_type])
-
-    if @temp.update(value: create_params[:value])
-      redirect_to :root
-    else
-      render :new
-    end
+    @temp.update!(value: create_params[:value])
+    flash[:success] = 'Temperature definition added successfully.'
+  rescue StandardError => e
+    flash[:error] = e.message
+  ensure
+    redirect_to :root
   end
 
   private
 
   def create_params
-    params.require(:temperature).permit(:temp_type,:value)
+    params.require(:temperature).permit(:temp_type, :value)
   end
 end
