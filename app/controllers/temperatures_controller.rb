@@ -6,8 +6,7 @@ class TemperaturesController < ApplicationController
   def create
     @temp = Temperature.find_or_create_by(temp_type: create_params[:temp_type])
     @temp.update(value: create_params[:value])
-    byebug
-    flash[:alert] = @temp.errors.full_messages if @temp.errors.any?
+    flash[:error] = @temp.errors.full_messages if @temp.errors.any?
     redirect_to :root
   end
 
