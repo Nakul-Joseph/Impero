@@ -12,6 +12,7 @@ RSpec.describe Temperature, type: :model do
     it { should define_enum_for(:temp_type).with_values([:hot, :cold]) }
     it { should validate_presence_of(:value) }
     it { should validate_numericality_of(:value) }
-    it { should validate_inclusion_of(:value).in_range(-60.0..60.0) }
+    it { should validate_inclusion_of(:value).in_range(-60.0..60.0)
+                                             .with_message('should be between -60 and 60 degree celcius') }
   end
 end

@@ -1,9 +1,8 @@
-<% if @response && @today %>
+<% if @response %>
   <h3> Temperature Results </h3>
   <div>
-    Country: <%= @response[0] %></br>
-    Max.Temp: <%= @response[1] %><span>&#8451;</span></br>
-    Today's is <b><%= @today %></b>
+    Max.Temp: <%= @response[:max_temp_c] %><span>&#8451;</span></br>
+    Today's is <b><%= @response[:today] %></b>
   </div>
 <% else %>
   <div> Invalid response. Please check postcode entered. </div>

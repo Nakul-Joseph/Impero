@@ -4,9 +4,12 @@ class TemperaturesController < ApplicationController
   end
 
   def create
-    @temp = Temperature.find_or_create_by(temp_type: create_params[:temp_type])
-    @temp.update(value: create_params[:value])
-    flash[:error] = @temp.errors.full_messages if @temp.errors.any?
+    @temp = Temperature.find_or_create_by!(temp_type: create_params[:temp_type])
+    @temp.update!(value: create_params[:value])
+    flash[:success] = 'Temperature definition added successfully.'
+  rescue StandardError => e
+    flash[:error] = e.message
+  ensure
     redirect_to :root
   end
 
