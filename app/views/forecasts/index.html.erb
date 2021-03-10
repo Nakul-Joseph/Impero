@@ -3,15 +3,21 @@
 <div>
 
   <% if @hot %>
-    Above <%= @hot.value %><span>&#8451;</span> is Hot.</br>
+    <div>
+      Above <%= @hot.value %><span>&#8451;</span> is <span class="text-danger">Hot</span>.
+    </div>
   <% end %>
 
   <% if @hot and @cold %>
-   Between <%= @cold.value %><span>&#8451;</span> and <%= @hot.value %><span>&#8451;</span> is Warm. </br>
+   <div>
+     Between <%= @cold.value %><span>&#8451;</span> and <%= @hot.value %><span>&#8451;</span> is <span class="text-warning">Warm</span>.
+   </div>
   <% end %>
 
   <%if @cold %>
-    Below <%= @cold.value %><span>&#8451;</span> is Cold. </br>
+    <div>
+      Below <%= @cold.value %><span>&#8451;</span> is <span class="text-info">Cold</span>.
+    </div>
   <% end %>
 
   <% unless @hot and @cold %>
