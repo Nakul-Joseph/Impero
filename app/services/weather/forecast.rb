@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Weather
   class Forecast
     attr_reader :postcode, :cold, :hot
@@ -15,13 +17,14 @@ module Weather
     private
 
     def validate_response(response)
-      raise StandardError.new(response['error']['message']) if error?(response)
+      raise StandardError, response['error']['message'] if error?(response)
+
       country = response['location']['country']
-      raise StandardError.new('Please enter a valid UK postcode.') if country != 'UK'
+      raise StandardError, 'Please enter a valid UK postcode.' if country != 'UK'
     end
 
     def error?(response)
-      response.has_key?('error')
+      response.key?('error')
     end
 
     def result_hash(response)
@@ -34,23 +37,24 @@ module Weather
     end
 
     def weather_today(max_temp_c)
-      case
-      when max_temp_c < cold
+      if max_temp_c < cold
         'Cold'
-      when (max_temp_c >= cold) && (max_temp_c < hot)
+      elsif (max_temp_c >= cold) && (max_temp_c < hot)
         'Warm'
-      when max_temp_c >= hot
+      elsif max_temp_c >= hot
         'Hot'
       end
     end
 
     def cold
-      raise StandardError.new('Cold temperature not defined.') if Temperature.cold.nil?
+      raise StandardError, 'Cold temperature not defined.' if Temperature.cold.nil?
+
       @cold ||= Temperature.cold.value
     end
 
     def hot
-      raise StandardError.new('Hot temperature not defined.') if Temperature.hot.nil?
+      raise StandardError, 'Hot temperature not defined.' if Temperature.hot.nil?
+
       @hot ||= Temperature.hot.value
     end
   end

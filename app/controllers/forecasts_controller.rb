@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ForecastsController < ApplicationController
   def index
     @hot = Temperature.hot

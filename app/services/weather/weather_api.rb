@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Weather
   class WeatherApi
     attr_reader :postcode
@@ -7,7 +9,7 @@ module Weather
     end
 
     def call
-      raise StandardError.new('Invalid postcode provided.') if postcode.empty?
+      raise StandardError, 'Invalid postcode provided.' if postcode.empty?
 
       response = HTTParty.get(forecast_url)
       JSON.parse(response.body)
@@ -24,7 +26,7 @@ module Weather
     end
 
     def api_key
-      "key=#{ WEATHER_API['key'] }"
+      "key=#{WEATHER_API['key']}"
     end
   end
 end

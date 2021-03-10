@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TemperaturesController < ApplicationController
   def new
     @temp = Temperature.new
@@ -16,6 +18,6 @@ class TemperaturesController < ApplicationController
   private
 
   def create_params
-    params.require(:temperature).permit(:temp_type,:value)
+    params.require(:temperature).permit(:temp_type, :value)
   end
 end

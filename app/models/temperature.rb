@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Temperature < ApplicationRecord
-  enum temp_type: [:hot, :cold]
+  enum temp_type: %i[hot cold]
 
   validates :temp_type, presence: true,
                         inclusion: { in: temp_types.keys }
@@ -11,11 +13,11 @@ class Temperature < ApplicationRecord
   validate :hot_temp_cannot_be_less_than_cold_temp, if: :hot?
 
   def cold?
-    self.temp_type == 'cold'
+    temp_type == 'cold'
   end
 
   def hot?
-    self.temp_type == 'hot'
+    temp_type == 'hot'
   end
 
   def self.hot
@@ -28,14 +30,14 @@ class Temperature < ApplicationRecord
 
   def cold_temp_cannot_be_greater_than_hot_temp
     hot = Temperature.hot
-    if hot.present? && self.value.present? && (self.value >= hot.value)
+    if hot.present? && value.present? && (value >= hot.value)
       errors.add(:value, "can't be greater or equal to hot value")
     end
   end
 
   def hot_temp_cannot_be_less_than_cold_temp
     cold = Temperature.cold
-    if cold.present? && self.value.present? && (self.value <= cold.value)
+    if cold.present? && value.present? && (value <= cold.value)
       errors.add(:value, "can't be lower or equal to cold value")
     end
   end
