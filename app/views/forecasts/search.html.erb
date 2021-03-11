@@ -1,5 +1,12 @@
 <% if @response %>
   <h3> Temperature Results </h3>
+
+  <div>
+  <% if @hot && @cold %>
+    <%= render partial: "weather_definitions", locals:{ hot: @hot, cold: @cold } %>
+  <% end %>
+  </div></br>
+
   <div>
     Max.Temp: <%= @response[:max_temp_c] %><span>&#8451;</span></br>
     Today's is <b><%= @response[:today] %></b>
